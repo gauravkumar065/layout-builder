@@ -20,6 +20,7 @@ import { useState } from "react";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Grid3X3 } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function LayoutBuilder() {
   const { state, actions, breakpoints } = useLayoutState();
@@ -56,6 +57,7 @@ export default function LayoutBuilder() {
             <NavbarLogo />
             <NavItems items={navItems} />
             <div className="flex items-center gap-4">
+              <ThemeToggle />
               <NavbarButton variant="secondary">Login</NavbarButton>
             </div>
           </NavBody>
@@ -85,6 +87,7 @@ export default function LayoutBuilder() {
                 </a>
               ))}
               <div className="flex w-full flex-col gap-4">
+                <ThemeToggle />
                 <NavbarButton
                   onClick={() => setIsMobileMenuOpen(false)}
                   variant="primary"
