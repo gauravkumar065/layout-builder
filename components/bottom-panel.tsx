@@ -147,6 +147,24 @@ export function BottomPanel({
     );
   }
 
+  // Tablet: fixed to viewport bottom (like desktop)
+  if (isTablet) {
+    return (
+      <div className="fixed bottom-0 left-0 w-full z-40">
+        <ResizablePanel
+          direction="vertical"
+          defaultSize={state.bottomPanelHeight}
+          minSize={100}
+          maxSize={600}
+          resizeFrom="top"
+          onResize={actions.setBottomPanelHeight}
+        >
+          {panelContent}
+        </ResizablePanel>
+      </div>
+    );
+  }
+
   // Tablet: relative, at content bottom
   return <div className="w-full">{panelContent}</div>;
 }
