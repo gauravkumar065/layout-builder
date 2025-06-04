@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Monitor, Smartphone, Tablet, Grid3X3 } from "lucide-react";
+import { ResizablePanel } from "@/components/resizable-panel";
+import { useLayoutState } from "@/hooks/use-layout-state";
 
 interface BottomPanelProps {
   isMobile: boolean;
@@ -18,6 +20,8 @@ export function BottomPanel({
   isTablet,
   isDesktop,
 }: BottomPanelProps) {
+  const { state, actions } = useLayoutState();
+
   const panelContent = (
     <div
       className={cn(
@@ -108,10 +112,19 @@ export function BottomPanel({
     return (
       <div
         className={cn(
-          "fixed bottom-0 left-0 w-full z-40 h-[256px] bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-t flex flex-col p-0"
+          "fixed bottom-0 left-0 w-full z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-t flex flex-col p-0"
         )}
       >
-        {panelContent}
+        <ResizablePanel
+          direction="vertical"
+          defaultSize={state.bottomPanelHeight}
+          minSize={100}
+          maxSize={600}
+          resizeFrom="top"
+          onResize={actions.setBottomPanelHeight}
+        >
+          {panelContent}
+        </ResizablePanel>
       </div>
     );
   }
@@ -119,7 +132,18 @@ export function BottomPanel({
   if (isDesktop) {
     // Fixed to viewport bottom
     return (
-      <div className="fixed bottom-0 left-0 w-full z-40">{panelContent}</div>
+      <div className="fixed bottom-0 left-0 w-full z-40">
+        <ResizablePanel
+          direction="vertical"
+          defaultSize={state.bottomPanelHeight}
+          minSize={100}
+          maxSize={600}
+          resizeFrom="top"
+          onResize={actions.setBottomPanelHeight}
+        >
+          {panelContent}
+        </ResizablePanel>
+      </div>
     );
   }
 

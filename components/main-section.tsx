@@ -124,7 +124,7 @@ export function MainSection({
   // Define the grid of 15 cards
   const cardsGrid = (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {Array.from({ length: 15 }).map((_, i) => renderSectionCard(i))}
+      {Array.from({ length: 50 }).map((_, i) => renderSectionCard(i))}
     </div>
   );
 
