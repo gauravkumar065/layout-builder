@@ -56,17 +56,17 @@ export function BottomPanel({
   const containerClass = cn(
     "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-t",
     isMobile
-      ? "fixed bottom-0 left-0 w-full shadow-lg z-40"
+      ? "fixed bottom-0 left-0 w-full shadow-lg z-40 h-64"
       : isDesktop
-      ? "fixed bottom-0 left-0 w-full"
-      : "w-full"
+      ? "fixed bottom-0 left-0 w-full max-h-[40vh]"
+      : "w-full max-h-[50vh]"
   );
 
   return (
     <div className={containerClass}>
-      <div className="h-64 flex flex-col">
+      <div className="flex flex-col h-full max-h-full min-h-0">
         {/* Header */}
-        <div className="flex items-center justify-between border-b px-4 py-3">
+        <div className="flex items-center justify-between border-b px-4 py-3 shrink-0">
           <div className="flex items-center gap-2">
             <Grid3X3 className="h-4 w-4 text-primary" />
             <h3 className="text-sm font-semibold">Layout Configuration</h3>
@@ -87,8 +87,8 @@ export function BottomPanel({
         </div>
 
         {/* Content */}
-        <Tabs defaultValue="preview" className="flex-1">
-          <div className="border-b px-4 py-2">
+        <Tabs defaultValue="preview" className="flex-1 min-h-0 flex flex-col">
+          <div className="border-b px-4 py-2 shrink-0">
             <TabsList className="h-9 bg-muted/50">
               <TabsTrigger value="preview" className="text-xs gap-1.5">
                 <Eye className="h-3.5 w-3.5" />
@@ -109,7 +109,7 @@ export function BottomPanel({
             </TabsList>
           </div>
 
-          <ScrollArea className="flex-1">
+          <ScrollArea className="flex-1 min-h-0">
             <TabsContent value="preview" className="p-4 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card className="p-4">
