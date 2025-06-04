@@ -11,7 +11,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ChevronDown,
   ChevronUp,
@@ -122,32 +121,11 @@ export function MainSection({
     );
   };
 
-  const mainContent = (
-    <Tabs defaultValue="components" className="w-full">
-      <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="components">Components</TabsTrigger>
-        <TabsTrigger value="layouts">Layouts</TabsTrigger>
-        <TabsTrigger value="settings">Settings</TabsTrigger>
-      </TabsList>
-
-      <TabsContent value="components" className="mt-6">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, i) => renderSectionCard(i))}
-        </div>
-      </TabsContent>
-
-      <TabsContent value="layouts" className="mt-6">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => renderSectionCard(i + 8))}
-        </div>
-      </TabsContent>
-
-      <TabsContent value="settings" className="mt-6">
-        <div className="grid gap-4 md:grid-cols-2">
-          {Array.from({ length: 4 }).map((_, i) => renderSectionCard(i + 14))}
-        </div>
-      </TabsContent>
-    </Tabs>
+  // Define the grid of 15 cards
+  const cardsGrid = (
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {Array.from({ length: 15 }).map((_, i) => renderSectionCard(i))}
+    </div>
   );
 
   // Mobile: Show summary when collapsed
@@ -233,9 +211,12 @@ export function MainSection({
   if (isTablet) {
     return (
       <div className="flex-1 overflow-hidden">
-        <ScrollArea className="h-full">
-          <div className="p-4" style={{ marginBottom: bottomPanelOffset }}>
-            {mainContent}
+        <ScrollArea className="h-full w-full">
+          <div
+            className="p-6"
+            style={{ paddingBottom: `${bottomPanelOffset}px` }}
+          >
+            {cardsGrid}
           </div>
         </ScrollArea>
       </div>
@@ -244,21 +225,27 @@ export function MainSection({
 
   // Desktop or Mobile expanded
   return (
-    <div className="flex-1 p-4" style={{ marginBottom: bottomPanelOffset }}>
-      {mainContent}
-      {isMobile && (
-        <div className="mt-6 pt-4 border-t space-y-4">
-          <Separator />
-          <Button
-            variant="outline"
-            onClick={onToggleExpanded}
-            className="w-full flex items-center gap-2"
-          >
-            <ChevronUp className="h-4 w-4" />
-            Back to Summary
-          </Button>
+    <div className="flex-1 overflow-hidden">
+      <ScrollArea className="h-full w-full">
+        <div
+          className="p-6"
+          style={{ paddingBottom: `${bottomPanelOffset}px` }}
+        >
+          {cardsGrid}
+          {isMobile && (
+            <div className="mt-6 pt-4 border-t">
+              <Button
+                variant="outline"
+                onClick={onToggleExpanded}
+                className="w-full flex items-center gap-2"
+              >
+                <ChevronUp className="h-4 w-4" />
+                Back to Summary
+              </Button>
+            </div>
+          )}
         </div>
-      )}
+      </ScrollArea>
     </div>
   );
 }

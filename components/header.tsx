@@ -14,12 +14,37 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Menu, Bell, Search, Layout, Palette, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useState, useEffect, useCallback } from "react";
 
 interface HeaderProps {
-  isCollapsed: boolean;
+  // isCollapsed prop is now managed internally
 }
 
-export function Header({ isCollapsed }: HeaderProps) {
+export function Header({}: HeaderProps) {
+  const [isScrolledDown, setIsScrolledDown] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const scrollThreshold = 50; // Only collapse after scrolling 50px
+
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > scrollThreshold && currentScrollY > lastScrollY) {
+      setIsScrolledDown(true); // Scrolling down
+    } else {
+      setIsScrolledDown(false); // Scrolling up or above threshold
+    }
+    setLastScrollY(currentScrollY <= 0 ? 0 : currentScrollY); // For Mobile or negative scrolling
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
+  // Use isScrolledDown for the isCollapsed logic
+  const isCollapsed = isScrolledDown;
+
   return (
     <header
       className={cn(
