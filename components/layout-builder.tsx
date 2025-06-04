@@ -21,7 +21,7 @@ export default function LayoutBuilder() {
       <Header isCollapsed={false} />
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col relative">
+      <div className="flex-1 flex flex-col relative mx-10">
         <MainSection
           isMobile={breakpoints.isMobile}
           isTablet={breakpoints.isTablet}

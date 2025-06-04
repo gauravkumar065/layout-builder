@@ -61,7 +61,7 @@ export function Header({ isCollapsed }: HeaderProps) {
                   isCollapsed ? "text-sm" : "text-lg"
                 )}
               >
-                Layout Builder
+                Responsive Layout
               </h1>
             </div>
           </div>
